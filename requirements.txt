@@ -1,0 +1,9 @@
+jupyter
+fastapi
+dask[dataframe]
+python-decouple
+sqlalchemy
+mysqlclient
+uvicorn
+jinja2
+airportsdata

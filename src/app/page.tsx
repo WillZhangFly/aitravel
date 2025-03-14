@@ -4,5 +4,7 @@ import FlightPredictForm from "@/app/flights/forms";
 
 export default function Home() {
 
-  return (<div><FlightPredictForm></FlightPredictForm><FlightListPage /></div>);
+  return (<div>
+          <FlightPredictForm/>
+        </div>);
 }

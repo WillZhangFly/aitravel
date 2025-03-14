@@ -3,12 +3,16 @@ import AirportDropdown from "../airports/dropdown";
 import { useState } from "react";
 
 export default function FlightPredictForm(props) {
-  
+
   const [startAirportVal, setStartAirportVal] = useState("jfk");
-  const [endAirportVal, setEndAirportVal] = useState("ord");
+  const [endAirportVal, setEndAirportVal] = useState("lax");
+  const [predictData, setPredictData] = useState({ loading: false, predictions: [] });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (predictData.loading) return;
+    setPredictData(prev => ({ ...prev, loading: true }));
+
     const formData = new FormData(event.target);
     const formObject = Object.fromEntries(formData);
     const jsonData = JSON.stringify(formObject);
@@ -20,19 +24,48 @@ export default function FlightPredictForm(props) {
       },
       body: jsonData,
     });
-    console.log("response", response);
     const data = await response.json();
-    console.log("data", data);
+    setPredictData(prev => ({
+      ...prev,
+      loading: false,
+      predictions: data && data.predict ? [...data.predict] : []
+    }));
   };
-  return <form onSubmit={handleSubmit}>
-    <AirportDropdown 
+  return <div><form onSubmit={handleSubmit}>
+    <AirportDropdown
       value={startAirportVal}
-      name='startingAirport' onChange={ e => setStartAirportVal(e.target.value)} />
-    <AirportDropdown 
+      name='startingAirport' onChange={e => setStartAirportVal(e.target.value)} />
+    <AirportDropdown
       name='destinationAirport'
-      value={endAirportVal} 
-      onChange={ e => setEndAirportVal(e.target.value)} 
+      value={endAirportVal}
+      onChange={e => setEndAirportVal(e.target.value)}
       filterval={startAirportVal} />
-    <button type="submit">Send</button>
+    <div>
+      <label htmlFor="isNonStop">
+        <input type="checkbox" id="isNonStop" name="isNonStop" />
+        Non stop flight?
+      </label>
+    </div>
+    <div>
+      <label htmlFor="isBasicEconomy">
+        <input type="checkbox" id="isBasicEconomy" name="isBasicEconomy" />
+        Basic Economy?
+      </label>
+    </div>
+    <div>
+      <label htmlFor="isRefundable">
+        <input type="checkbox" id="isRefundable" name="isRefundable" />
+        Refunable?
+      </label>
+    </div>
+    {predictData.loading ? <div>Loading...</div> : <button type="submit">Send</button>
+    }
   </form>
+    {predictData?.predictions?.length > 0 && predictData.predictions.map((prediction, index) => {
+        return <div key={`prediction-${index}`}>
+          {JSON.stringify(prediction)}
+        </div>
+      }
+    )}
+  </div>
 }

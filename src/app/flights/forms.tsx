@@ -47,19 +47,19 @@ export default function FlightPredictForm(props) {
     <div>
       <label htmlFor="isNonStop">
         <input type="checkbox" id="isNonStop" name="isNonStop" />
-        Non stop flight?
+        &nbsp;Non stop flight?
       </label>
     </div>
     <div>
       <label htmlFor="isBasicEconomy">
         <input type="checkbox" id="isBasicEconomy" name="isBasicEconomy" />
-        Basic Economy?
+        &nbsp;Basic Economy?
       </label>
     </div>
     <div>
       <label htmlFor="isRefundable">
         <input type="checkbox" id="isRefundable" name="isRefundable" />
-        Refunable?
+        &nbsp;Refunable?
       </label>
     </div>
     <button disabled={predictData.loading} className={btnClassName} type="submit">{btnLabel}</button>

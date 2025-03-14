@@ -31,6 +31,10 @@ export default function FlightPredictForm(props) {
       predictions: data && data.predict ? [...data.predict] : []
     }));
   };
+
+  const btnClassName = predictData.loading ? "btn-disabled" : "btn-primary";
+  const btnLabel = predictData.loading ? "Loading..." : "Predict";
+
   return <div><form onSubmit={handleSubmit}>
     <AirportDropdown
       value={startAirportVal}
@@ -58,8 +62,7 @@ export default function FlightPredictForm(props) {
         Refunable?
       </label>
     </div>
-    {predictData.loading ? <div>Loading...</div> : <button className="btn-primary" type="submit">Send</button>
-    }
+    <button disabled={predictData.loading} className={btnClassName} type="submit">{btnLabel}</button>
   </form>
     {predictData?.predictions?.length > 0 && predictData.predictions.map((prediction, index) => {
         return <div key={`prediction-${index}`}>

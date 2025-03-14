@@ -17,7 +17,7 @@ export default function AirportDropdown({ name, value, filterval = "", onChange 
 
   return (<select name={name} onChange={handleChange}>{
     displayData.map((row, id) => {
-      return <option key={`airport-${id}`} selected={value.toLocaleLowerCase() === row.value.toLocaleLowerCase() } value={row.value}>{row.value} - {row.label}</option>
+      return <option key={`airport-${id}`} selected={value?.toLocaleLowerCase() === row.value?.toLocaleLowerCase() } value={row.value}>{row.value} - {row.label}</option>
     })}
   </select>)
 }

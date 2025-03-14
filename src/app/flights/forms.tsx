@@ -58,7 +58,7 @@ export default function FlightPredictForm(props) {
         Refunable?
       </label>
     </div>
-    {predictData.loading ? <div>Loading...</div> : <button type="submit">Send</button>
+    {predictData.loading ? <div>Loading...</div> : <button className="btn-primary" type="submit">Send</button>
     }
   </form>
     {predictData?.predictions?.length > 0 && predictData.predictions.map((prediction, index) => {

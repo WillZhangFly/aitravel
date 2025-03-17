@@ -35,40 +35,52 @@ export default function FlightPredictForm(props) {
   const btnClassName = predictData.loading ? "btn-disabled" : "btn-primary";
   const btnLabel = predictData.loading ? "Loading..." : "Predict";
 
-  return <div><form onSubmit={handleSubmit}>
-    <AirportDropdown
-      value={startAirportVal}
-      name='startingAirport' onChange={e => setStartAirportVal(e.target.value)} />
-    <AirportDropdown
-      name='destinationAirport'
-      value={endAirportVal}
-      onChange={e => setEndAirportVal(e.target.value)}
-      filterval={startAirportVal} />
-    <div>
-      <label htmlFor="isNonStop">
-        <input type="checkbox" id="isNonStop" name="isNonStop" />
-        &nbsp;Non stop flight?
-      </label>
-    </div>
-    <div>
-      <label htmlFor="isBasicEconomy">
-        <input type="checkbox" id="isBasicEconomy" name="isBasicEconomy" />
-        &nbsp;Basic Economy?
-      </label>
-    </div>
-    <div>
-      <label htmlFor="isRefundable">
-        <input type="checkbox" id="isRefundable" name="isRefundable" />
-        &nbsp;Refunable?
-      </label>
-    </div>
-    <button disabled={predictData.loading} className={btnClassName} type="submit">{btnLabel}</button>
+  return <div >
+    <form onSubmit={handleSubmit}>
+      <div className="grid md:grid-cols-2 md:gap-3" >
+        <div>
+          <label htmlFor="startingAirport">Starting Airport</label>
+          <AirportDropdown
+            value={startAirportVal}
+            name='startingAirport' onChange={e => setStartAirportVal(e.target.value)} />
+        </div>
+        <div>
+          <label htmlFor="destinationAirport">Destination Airport</label>
+          <AirportDropdown
+            name='destinationAirport'
+            value={endAirportVal}
+            onChange={e => setEndAirportVal(e.target.value)}
+            filterval={startAirportVal} />
+        </div>
+      </div>
+      <div className="grid grid-cols-2">
+        <div>
+          <label htmlFor="isNonStop">
+            <input type="checkbox" id="isNonStop" name="isNonStop" />
+            &nbsp;Non stop flight?
+          </label>
+        </div>
+        <div>
+          <label htmlFor="isBasicEconomy">
+            <input type="checkbox" id="isBasicEconomy" name="isBasicEconomy" />
+            &nbsp;Basic Economy?
+          </label>
+        </div>
+        <div>
+          <label htmlFor="isRefundable">
+            <input type="checkbox" id="isRefundable" name="isRefundable" />
+            &nbsp;Refunable?
+          </label>
+        </div>
+        <button disabled={predictData.loading} className={btnClassName} type="submit">{btnLabel}</button>
+      </div>
+
   </form>
     {predictData?.predictions?.length > 0 && predictData.predictions.map((prediction, index) => {
-        return <div key={`prediction-${index}`}>
-          {JSON.stringify(prediction)}
-        </div>
-      }
+      return <div key={`prediction-${index}`}>
+        {JSON.stringify(prediction)}
+      </div>
+    }
     )}
   </div>
 }

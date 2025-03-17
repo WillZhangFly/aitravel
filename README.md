@@ -1,7 +1,7 @@
 
 # AI Travel
 
-## command to open jupyter
+## How to open jupyter
   ```
   1.  python3 -m venv venv
   2.  source venv/bin/activate
@@ -9,7 +9,7 @@
   4.  venv/bin/python -m jupyter notebook
   ```
 
-## how to connect to mariadb
+## How to connect to mariadb
   ```
   1. ./connect.sh
   2.  sudo su
@@ -20,13 +20,14 @@
   7. then enter [psd]
   ```
 
-## how to run fastapi
+## How to run fastapi
+
 ### How to get into to venv virtual environment
   ```
   1.  python3 -m venv venv
   2.  source venv/bin/activate
   ```
-### run fast api api
+### How to run fast api api
   ```
   1. 'uvicorn backend.main:app --reload --port 8080'
   ```

@@ -19,14 +19,15 @@ def predict_query(session,
       destinationAirport="BOS", 
       raw_request=False, **kwargs):
     sql_query=f"""
-    SELECT m.flightDate,  m.segmentsAirlineName, m.isNonStop, m.totalFare, m.totalFare_confidence FROM mindsdb.flight_prices_predictor AS m
+    SELECT m.flightDate as date,  m.segmentsAirlineName as airline, m.isNonStop as nonStop, m.isBasicEconomy as basic, m.isRefundable as refundable, m.totalFare as price FROM mindsdb.flight_prices_predictor AS m
     JOIN ai_travel_agent.flight_prices AS t
-    WHERE t.flightDate > "{flightDate}"
+    WHERE t.flightDate >= "{flightDate}"
     AND t.startingAirport = "{startingAirport}"
     AND t.isBasicEconomy = "{isBasicEconomy}" 
     AND t.isRefundable = "{isRefundable}"
     AND t.isNonStop = "{isNonStop}"
-    AND t.destinationAirport = "{destinationAirport}";
+    AND t.destinationAirport = "{destinationAirport}"
+    LIMIT 20;
     """
     response = mindsdb_query(session, sql_query)
     response.raise_for_status()

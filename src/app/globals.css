@@ -32,7 +32,7 @@ body {
   }
 
   form{
-    @apply max-w-sm mx-auto
+    @apply mx-auto max-w-full
   }
 
   input[type="checkbox"]{

@@ -18,7 +18,6 @@ const fetcher = async url => {
 
 export default function performAPIGetRequest(path) {
   const endpoint = path.startsWith("/") ? path.slice(1) : path;
-  console.log("endpoint", endpoint);
   const url = `${API_BASE_URL}/${endpoint}`;
   const swrData = useSWR(url, fetcher);
   return swrData;

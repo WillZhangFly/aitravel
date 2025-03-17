@@ -1,6 +1,7 @@
 import { API_BASE_URL } from "@/app/utils/apiClient";
 import AirportDropdown from "../airports/dropdown";
 import { useState } from "react";
+import { PredictionResultTable } from "./table";
 
 export default function FlightPredictForm(props) {
 
@@ -36,7 +37,7 @@ export default function FlightPredictForm(props) {
   const btnLabel = predictData.loading ? "Loading..." : "Predict";
 
   return <div >
-    <form onSubmit={handleSubmit}>
+    <form className="space-2 md:space-y-3" onSubmit={handleSubmit}>
       <div className="grid md:grid-cols-2 md:gap-3" >
         <div>
           <label htmlFor="startingAirport">Starting Airport</label>
@@ -53,34 +54,34 @@ export default function FlightPredictForm(props) {
             filterval={startAirportVal} />
         </div>
       </div>
-      <div className="grid grid-cols-2">
+      <div className="grid md:grid-cols-6 md:gap-3">
         <div>
           <label htmlFor="isNonStop">
-            <input type="checkbox" id="isNonStop" name="isNonStop" />
-            &nbsp;Non stop flight?
           </label>
+          <input type="checkbox" id="isNonStop" name="isNonStop" />
+          &nbsp;Non stop flight?
         </div>
         <div>
           <label htmlFor="isBasicEconomy">
-            <input type="checkbox" id="isBasicEconomy" name="isBasicEconomy" />
-            &nbsp;Basic Economy?
           </label>
+          <input type="checkbox" id="isBasicEconomy" name="isBasicEconomy" />
+          &nbsp;Basic Economy?
         </div>
         <div>
           <label htmlFor="isRefundable">
-            <input type="checkbox" id="isRefundable" name="isRefundable" />
-            &nbsp;Refunable?
           </label>
+          <input type="checkbox" id="isRefundable" name="isRefundable" />
+          &nbsp;Refunable?
         </div>
-        <button disabled={predictData.loading} className={btnClassName} type="submit">{btnLabel}</button>
+        <div className="md:col-span-3">
+          <button disabled={predictData.loading} className={`${btnClassName} float-right`} type="submit">
+            {btnLabel}
+          </button>
+        </div>
       </div>
 
   </form>
-    {predictData?.predictions?.length > 0 && predictData.predictions.map((prediction, index) => {
-      return <div key={`prediction-${index}`}>
-        {JSON.stringify(prediction)}
-      </div>
-    }
-    )}
+    <PredictionResultTable predictions={predictData && predictData.predictions } />
+
   </div>
 }

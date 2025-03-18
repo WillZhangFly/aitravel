@@ -27,7 +27,7 @@
   1.  python3 -m venv venv
   2.  source venv/bin/activate
   ```
-### How to run fast api api
+### How to run fastapi
   ```
   1. 'uvicorn backend.main:app --reload --port 8080'
   ```

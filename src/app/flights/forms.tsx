@@ -7,7 +7,7 @@ export default function FlightPredictForm(props) {
 
   const [startAirportVal, setStartAirportVal] = useState("jfk");
   const [endAirportVal, setEndAirportVal] = useState("lax");
-  const [predictData, setPredictData] = useState({ loading: false, predictions: [], recommendation: {} });
+  const [predictData, setPredictData] = useState({ loading: false, predictions: [], recommendation: {bestFlightOption: {}} });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -89,7 +89,7 @@ export default function FlightPredictForm(props) {
     {predictData && predictData.recommendation? <div>{JSON.stringify(predictData.recommendation)}</div>: null}
     <PredictionResultTable 
       predictions={predictData && predictData.predictions } 
-      // recommendation={predictData.recommendation}
+      recommendation={predictData.recommendation.bestFlightOption}
     />
   </div>
 }

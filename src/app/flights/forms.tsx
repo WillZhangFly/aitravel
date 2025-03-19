@@ -15,7 +15,12 @@ export default function FlightPredictForm(props) {
     setPredictData(prev => ({ ...prev, loading: true }));
 
     const formData = new FormData(event.target);
+    
+    //temporarily convert checkbox values to 1 or 0
     formData.set('isNonStop', formData.get('isNonStop') === 'on' ? '1' : '0');
+    formData.set('isBasicEconomy', formData.get('isBasicEconomy') === 'on' ? '1' : '0');
+    formData.set('isRefundable', formData.get('isRefundable') === 'on' ? '1' : '0');
+
     const formObject = Object.fromEntries(formData);
     const jsonData = JSON.stringify(formObject);
     const endPoint = `${API_BASE_URL}/predict`;

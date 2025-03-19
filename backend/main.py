@@ -54,6 +54,7 @@ def read_flight_price(
 @app.post("/predict/")
 def write_to_predict(prediction_req:db_schemas.PredictSchema, ai_session: RequestSession = Depends(get_mindsdb_session)):
     request_data = prediction_req.model_dump()
+    print(request_data)
     
     predictions = predict.predict_query(
         ai_session,
@@ -63,7 +64,7 @@ def write_to_predict(prediction_req:db_schemas.PredictSchema, ai_session: Reques
     if len(predictions) == 0:
         return {}
     
-    recommendation = predict.recommended_flight = predict.recommended_flight(
+    recommendation = predict.recommended_flight(
         ai_session,
         forecast_data=predictions,
         user_data=request_data

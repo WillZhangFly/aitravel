@@ -56,12 +56,14 @@ def predict_query(session,
   JOIN ai_travel_agent.flight_prices AS t
   WHERE t.flightDate >= "{flightDate}"
   AND t.startingAirport = "{startingAirport}"
-  AND t.isBasicEconomy = "{isBasicEconomy}" 
-  AND t.isRefundable = "{isRefundable}"
-  AND t.isNonStop = "{isNonStop}"
+  AND t.isBasicEconomy = {isBasicEconomy} 
+  AND t.isRefundable = {isRefundable}
+  AND t.isNonStop = {isNonStop}
   AND t.destinationAirport = "{destinationAirport}"
   LIMIT 20;
   """
+  
+  print(sql_query)
   response = mindsdb_query(session, sql_query)
   response.raise_for_status()
   if raw_request:

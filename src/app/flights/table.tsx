@@ -13,7 +13,10 @@ export function PredictionResultTable({ predictions, recommendation }) {
       <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
           {colNames.map((colName, index) => {
-            if (index === requestIDColIdx) {return null;}
+            if (index === requestIDColIdx) {
+              return <th key={`col-${index}`} scope="col" className="px-6 py-3">
+              </th>
+            }
             return <th key={`col-${index}`} scope="col" className="px-6 py-3">
               {colName}
             </th>
@@ -25,12 +28,16 @@ export function PredictionResultTable({ predictions, recommendation }) {
         {predictions.map((prediction, trIdx) => {
           const trValues = Object.values(prediction);
           let className = "bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200";
-          if(prediction.requestID === recommendation.requestID) {
-            className = "bg-green-50 border-b dark:bg-green-900 dark:border-green-700 border-green-2000"
+          const isRecommended = prediction.requestID === recommendation.requestID;
+          if(isRecommended) {
+            className = "bg-green-200 text-black font-bold border-b dark:bg-green-900 dark:border-green-700 border-green-2000"
           }
           return <tr key={`prediction-${trIdx}`} className={className}>
             {trValues.map((colValue, index) => {
-              if (index === requestIDColIdx) {return null; }
+              const recLabel = isRecommended ? "->" : "";
+              if (index === requestIDColIdx) {
+                return <td key={`${trIdx}-${index}`} className="px-6 py-4">{recLabel}</td> 
+              }
               const isDate = index === dateColIdx;
               const isPrice = index === priceColIdx;
               const renderedDate = isDate ? new Date(Date.parse(colValue as string)).toLocaleDateString() : null;

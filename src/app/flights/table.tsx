@@ -30,7 +30,7 @@ export function PredictionResultTable({ predictions, recommendation }) {
           let className = "bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200";
           const isRecommended = prediction.requestID === recommendation.requestID;
           if(isRecommended) {
-            className = "bg-green-200 text-black font-bold border-b dark:bg-green-900 dark:border-green-700 border-green-2000"
+            className = "bg-blue-300 text-black font-bold border-b dark:bg-green-900 dark:border-blue-700 border-blue-2000 hover:bg-blue-500 dark:hover:bg-blue-800";
           }
           return <tr key={`prediction-${trIdx}`} className={className}>
             {trValues.map((colValue, index) => {

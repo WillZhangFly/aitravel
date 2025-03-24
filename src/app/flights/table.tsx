@@ -1,4 +1,7 @@
-export function PredictionResultTable({ predictions, recommendation }) {
+import Link from "next/link";
+import getAirlinePurchaseLink from "./links";
+
+export function PredictionResultTable({ predictions, recommendation, startintAirport, destinationAirport }) {
   if (!predictions || predictions.length === 0) return <div>No predictions</div>
   const firstResult = predictions[0]
   const colNames = Object.keys(firstResult);
@@ -32,6 +35,18 @@ export function PredictionResultTable({ predictions, recommendation }) {
           if(isRecommended) {
             className = "bg-blue-300 text-black font-bold border-b dark:bg-green-900 dark:border-blue-700 border-blue-2000 hover:bg-blue-500 dark:hover:bg-blue-800";
           }
+
+          const predDateObject = new Date(Date.parse(prediction.date as string));
+          const airlineLinkData = {
+            airline: prediction.airline as string,
+            date: predDateObject,
+            from: startintAirport as string,
+            to: destinationAirport as string,
+          }
+
+          const purchaseLink = getAirlinePurchaseLink(airlineLinkData);
+
+
           return <tr key={`prediction-${trIdx}`} className={className}>
             {trValues.map((colValue, index) => {
               const recLabel = isRecommended ? "->" : "";
@@ -52,6 +67,10 @@ export function PredictionResultTable({ predictions, recommendation }) {
               </td>
             }
             )}
+
+            <td className="px-6 py-4">
+              {purchaseLink && purchaseLink ? <Link href={purchaseLink} target="_blank">Purchase</Link> : null}
+            </td>
           </tr>
         }
         )}

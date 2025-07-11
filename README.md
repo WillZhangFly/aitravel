@@ -5,8 +5,7 @@
   ```
   1.  python3 -m venv venv
   2.  source venv/bin/activate
-  3.  venv/bin/jupyter
-  4.  venv/bin/python -m jupyter notebook
+  3.  venv/bin/python -m jupyter notebook
   ```
 
 ## How to connect to mariadb
